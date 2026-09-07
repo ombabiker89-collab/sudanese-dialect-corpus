@@ -8,6 +8,8 @@
 - بت = girl
 - دايره = want/like
 - ما دايره = don't want
+- اشطة = nice / good / cool (Egyptian loanword used in Sudanese speech)
+- سامحة = beautiful / pretty (compliment for a woman)
 
 ## Regional notes
 - Khartoum: more standard Sudanese
