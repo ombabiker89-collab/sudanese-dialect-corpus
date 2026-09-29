@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sudanese Accent Lab</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <header>
+    <p class="eyebrow">ombabiker89-collab / sudanese-dialect-corpus</p>
+    <h1>معمل اللهجة السودانية</h1>
+    <p class="sub">Prompt lab over the existing corpus. Not a TTS model. Not ASR.</p>
+  </header>
+  <nav>
+    <button data-view="lab" class="active">مختبر البرومبت</button>
+    <button data-view="corpus">الكوربس</button>
+    <button data-view="vocab">المفردات</button>
+    <button data-view="eval">الروبريك</button>
+  </nav>
+  <main>
+    <section id="view-lab" class="view">
+      <div class="grid">
+        <article>
+          <h2>System prompt</h2>
+          <textarea id="systemPrompt" rows="12" spellcheck="false"></textarea>
+          <div class="row">
+            <button id="copySystem">نسخ البرومبت</button>
+            <button id="resetSystem" class="ghost">إعادة الافتراضي</button>
+          </div>
+        </article>
+        <article>
+          <h2>تجربة رد</h2>
+          <label>المخاطب
+            <select id="addressee">
+              <option value="m">زول</option>
+              <option value="f">بت</option>
+            </select>
+          </label>
+          <label>المنطقة
+            <select id="region">
+              <option value="khartoum">خرطوم</option>
+              <option value="darfur">دارفور</option>
+              <option value="east">الشرق</option>
+              <option value="diaspora">مهجر</option>
+            </select>
+          </label>
+          <textarea id="userTurn" rows="4" placeholder="اكتب باللهجة…"></textarea>
+          <div class="row">
+            <button id="draftReply">ولّد مسودة محلية</button>
+            <button id="toJsonl" class="ghost">حوّل JSONL</button>
+          </div>
+          <pre id="draftOut" class="out"></pre>
+          <p class="hint">مسودة محلية من المفردات. ما في موديل متدرب في الريبو. الصق الـ system prompt في Grok/Claude/GPT.</p>
+        </article>
+      </div>
+    </section>
+    <section id="view-corpus" class="view hidden">
+      <h2>data/sample_conversations.jsonl</h2>
+      <div id="corpusList"></div>
+    </section>
+    <section id="view-vocab" class="view hidden">
+      <h2>vocab</h2>
+      <input id="vocabFilter" type="search" placeholder="فلتر…" />
+      <table>
+        <thead><tr><th>سوداني</th><th>معنى</th><th>ملاحظة</th></tr></thead>
+        <tbody id="vocabBody"></tbody>
+      </table>
+    </section>
+    <section id="view-eval" class="view hidden">
+      <h2>Eval rubric</h2>
+      <pre id="rubricOut" class="out"></pre>
+    </section>
+  </main>
+  <footer>
+    <a href="https://github.com/ombabiker89-collab/sudanese-dialect-corpus">repo</a>
+    · MIT · feat/sudanese-accent-app
+  </footer>
+  <script src="assets/app.js"></script>
+</body>
+</html>
