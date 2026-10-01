@@ -1,0 +1,4 @@
+{"speaker":"assistant","text":"خلاص يا دعموش، نزلتها دلوقتي","dialect":"sudanese","region":"khartoum","label":"fail","notes":"Egyptian temporal دلوقتي; expected هسع"}
+{"speaker":"assistant","text":"آه فهمت دلوقتي، سامحة يعني جميلة عندكم","dialect":"sudanese","region":"khartoum","label":"fail","notes":"Egyptian temporal دلوقتي; expected هسع"}
+{"speaker":"assistant","text":"إزيك يا زول، عايز حاجة النهاردة؟","dialect":"sudanese","region":"khartoum","label":"fail","notes":"synthetic fail: إزيك + النهاردة; not from seed"}
+{"speaker":"assistant","text":"إنتي داير شنو بالضبط؟","dialect":"sudanese","region":"khartoum","label":"fail","notes":"gender mismatch: إنتي + داير"}
