@@ -8,15 +8,16 @@
 </head>
 <body>
   <header>
-    <p class="eyebrow">ombabiker89-collab / sudanese-dialect-corpus</p>
+    <p class="eyebrow">ombabiker89-collab / sudanese-dialect-corpus · feat/accent-lab-eval</p>
     <h1>معمل اللهجة السودانية</h1>
-    <p class="sub">Prompt lab over the existing corpus. Not a TTS model. Not ASR.</p>
+    <p class="sub">Prompt lab + leakage scorer over the seed corpus. Not TTS. Not ASR. Not a trained accent model.</p>
   </header>
   <nav>
     <button data-view="lab" class="active">مختبر البرومبت</button>
+    <button data-view="score">التقييم</button>
     <button data-view="corpus">الكوربس</button>
     <button data-view="vocab">المفردات</button>
-    <button data-view="eval">الروبريك</button>
+    <button data-view="craft">صنعة البرومبت</button>
   </nav>
   <main>
     <section id="view-lab" class="view">
@@ -26,6 +27,7 @@
           <textarea id="systemPrompt" rows="12" spellcheck="false"></textarea>
           <div class="row">
             <button id="copySystem">نسخ البرومبت</button>
+            <button id="copyPack" class="ghost">نسخ الحزمة (system + gold + fail)</button>
             <button id="resetSystem" class="ghost">إعادة الافتراضي</button>
           </div>
         </article>
@@ -49,14 +51,43 @@
           <div class="row">
             <button id="draftReply">ولّد مسودة محلية</button>
             <button id="toJsonl" class="ghost">حوّل JSONL</button>
+            <button id="scanDraft" class="ghost">افحص التسريب</button>
           </div>
           <pre id="draftOut" class="out"></pre>
-          <p class="hint">مسودة محلية من المفردات. ما في موديل متدرب في الريبو. الصق الـ system prompt في Grok/Claude/GPT.</p>
+          <p class="hint">مسودة محلية من المفردات. ما في موديل متدرب في الريبو. الصق الحزمة في Grok/Claude/GPT ثم ارجع النتيجة لتبويب التقييم.</p>
+        </article>
+      </div>
+    </section>
+    <section id="view-score" class="view hidden">
+      <div class="grid">
+        <article>
+          <h2>النص المراد تقييمه</h2>
+          <textarea id="scoreText" rows="6" placeholder="الصق رد الموديل هنا"></textarea>
+          <label>جنس المخاطب
+            <select id="scoreGender">
+              <option value="m">مذكر</option>
+              <option value="f">مؤنث</option>
+            </select>
+          </label>
+          <button id="runScan">افحص التسريب + الجنس</button>
+          <pre id="scanOut" class="out"></pre>
+        </article>
+        <article>
+          <h2>روبريك 0–5</h2>
+          <p class="hint">Pass: mean &gt;= 3.5 and leakage &lt;= 1. Auto-fail if leak hits &gt;= 2 or gender mismatch.</p>
+          <label>Lexicon <input id="sLex" type="number" min="0" max="5" value="3" /></label>
+          <label>Syntax <input id="sSyn" type="number" min="0" max="5" value="3" /></label>
+          <label>Leakage (5 = clean) <input id="sLeak" type="number" min="0" max="5" value="5" /></label>
+          <label>Agreement <input id="sAgr" type="number" min="0" max="5" value="5" /></label>
+          <label>Region honesty <input id="sReg" type="number" min="0" max="5" value="3" /></label>
+          <button id="computeScore">احسب</button>
+          <pre id="scoreOut" class="out"></pre>
         </article>
       </div>
     </section>
     <section id="view-corpus" class="view hidden">
       <h2>data/sample_conversations.jsonl</h2>
+      <p class="hint">السطور الموسومة fail موجودة في البذرة ومكررة في data/leak_failset.jsonl. ما تم مسحها.</p>
       <div id="corpusList"></div>
     </section>
     <section id="view-vocab" class="view hidden">
@@ -67,14 +98,23 @@
         <tbody id="vocabBody"></tbody>
       </table>
     </section>
-    <section id="view-eval" class="view hidden">
-      <h2>Eval rubric</h2>
-      <pre id="rubricOut" class="out"></pre>
+    <section id="view-craft" class="view hidden">
+      <article>
+        <h2>صنعة البرومبت — النسخة اللي ما تموت مع تبديل الموديل</h2>
+        <ol>
+          <li>قيود مرقمة قابلة للفحص. «كن طبيعي» ليس قيداً. «هسع لا دلوقتي» قيد.</li>
+          <li>عقد المخرج: JSONL بحقول ثابتة. الشكل مش «رد حلو».</li>
+          <li>Few-shot من نفس الكوربس: سطران ناجحان + سطران فاشلان موسومان. النماذج العامة من الإنترنت ما تثبّت اللهجة.</li>
+          <li>سلبيات صريحة: قائمة التسريب المصري/الفصحى.</li>
+          <li>مجموعة تقييم ثابتة تتعاد على كل تغيير برومبت أو موديل. الحكم بالإحساس مش تقييم.</li>
+        </ol>
+        <pre id="rubricOut" class="out"></pre>
+      </article>
     </section>
   </main>
   <footer>
     <a href="https://github.com/ombabiker89-collab/sudanese-dialect-corpus">repo</a>
-    · MIT · feat/sudanese-accent-app
+    · MIT · open app/index.html locally · seed is 12 lines, not a training set
   </footer>
   <script src="assets/app.js"></script>
 </body>
