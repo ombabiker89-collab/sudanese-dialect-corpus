@@ -5,6 +5,7 @@
   --line: #2a2c27;
   --accent: #c4a35a;
   --card: #181a16;
+  --fail: #c45a5a;
 }
 * { box-sizing: border-box; }
 body {
@@ -46,3 +47,6 @@ table { width: 100%; border-collapse: collapse; }
 th, td { border-bottom: 1px solid var(--line); padding: .45rem; text-align: right; }
 .turn { border: 1px solid var(--line); padding: .6rem .8rem; margin: .4rem 0; border-radius: 6px; }
 .turn b { color: var(--accent); }
+.turn.bad { border-color: var(--fail); }
+.fail { color: var(--fail); font-size: .8rem; margin-inline-start: .4rem; }
+ol { padding-inline-start: 1.2rem; }
